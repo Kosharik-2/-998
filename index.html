@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>root@github-server:~#</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px;
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .cursor {
+            background-color: #00ff66;
+            animation: blink 1s infinite;
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        .dim { color: #008833; }
+        .white { color: #ffffff; }
+        .yellow { color: #ffff00; }
+        .red { color: #ff3333; }
+    </style>
+</head>
+<body>
+
+<div id="terminal">
+    <div>Last login: Mon Oct 5 15:24:12 on ttys003</div>
+    <div>root@github-cluster-04:~# ./init_system_recovery.sh --force</div>
+    <div id="output"></div>
+</div>
+
+<script>
+    const logs = [
+        "<span class='dim'>[ 0.000000] Linux version 6.5.0-28-generic (buildd@lcy02-08)</span>",
+        "<span class='dim'>[ 0.412932] ACPI: SRAT 0x000000007af4d000 0x000288 (v02 ALASKA AMISRAT )</span>",
+        "<span class='dim'>[ 1.104821] pci 0000:00:00.0: [8086:9bcc] type 00 class 0x060000</span>",
+        "Initializing cgroup subsys cpuset",
+        "Initializing cgroup subsys cpu",
+        "Mounting /sys/fs/cgroup to rootfs...",
+        "<span class='yellow'>[WARN] Low memory threshold reached. Reallocating buffer zones...</span>",
+        "Connecting to remote upstream gateway: github.io [192.30.255.113:443]...",
+        "<span class='white'>SSL handshake completed successfully. Cipher: TLS_AES_256_GCM_SHA384</span>",
+        "Fetching index.html from origin repository...",
+        "<span class='red'>[ERROR] Integrity check failed on block #4812: cached data mismatch.</span>",
+        "Flushing local browser storage and forcing cache invalidation...",
+        "Clearing service worker cache storage...",
+        "Rebuilding DOM tree and executing raw payload...",
+        "<span class='green'>[OK] System synchronized successfully. All nodes updated.</span>",
+        "<span class='white'>root@github-cluster-04:~# </span><span class='cursor'></span>"
+    ];
+
+    let i = 0;
+    const output = document.getElementById("output");
+
+    function showNextLog() {
+        if (i < logs.length) {
+            output.innerHTML += "<div>" + logs[i] + "</div>";
+            i++;
+            // Рандомная задержка для реалистичности (иногда быстро, иногда думает)
+            let delay = Math.random() * 300 + 100;
+            setTimeout(showNextLog, delay);
+        }
+    }
+
+    setTimeout(showNextLog, 400);
+</script>
+
+</body>
+</html>
